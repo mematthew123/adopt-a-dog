@@ -15,7 +15,7 @@ const fetchToken = async (): Promise<TokenResponse> => {
   return response.json();
 };
 
-export default function Index() {
+export default function Dogs() {
   const [token, setToken] = useState('');
 
   useEffect(() => {
