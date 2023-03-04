@@ -5,15 +5,14 @@ interface Props {
   token: string;
 }
 
-interface Animal {
+export interface Animal {
   id: number;
   name: string;
   species: string;
   age: string;
-  breeds: { primary: string };
-  story: string;
   description: string;
   photos: { small: string; medium: string; large: string; full: string }[];
+  status: string;
   attributes: {
     spayed_neutered: boolean;
     house_trained: boolean;
@@ -84,8 +83,6 @@ export default function DogsInMissoula({ token }: Props) {
           <h2 className="text-2xl font-bold">{animal.name}</h2>
           <p className="text-lg font-medium">{animal.species}</p>
           <p className="text-lg font-medium">{animal.age}</p>
-          <p className="text-lg">{animal.breeds.primary}</p>
-          <p className="text-lg">{animal.story}</p>
           <p className="text-lg whitespace-pre-wrap">{animal.description}</p>
 
           {animal.photos.length > 0 ? (

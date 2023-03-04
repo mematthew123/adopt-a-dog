@@ -1,41 +1,32 @@
-import { useState, useEffect } from "react";
-import { NextApiRequest } from "next";
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 interface TokenResponse {
   access_token: string;
   token_type: string;
   expires_in: number;
-  refresh_token: string;
-  scope: string;
 }
 
-const useTokenResponse = (req: NextApiRequest): TokenResponse => {
-  const [tokenResponse, setTokenResponse] = useState<TokenResponse>();
+const clientId = process.env.PETFINDER_CLIENT_ID;
+const clientSecret = process.env.PETFINDER_CLIENT_SECRET;
 
-  useEffect(() => {
-    const getToken = async () => {
-      const clientId = process.env.PETFINDER_CLIENT_ID;
-      const clientSecret = process.env.PETFINDER_CLIENT_SECRET;
-      const encodedAuth = Buffer.from(`${clientId}:${clientSecret}`).toString(
-        "base64"
-      );
-      const response = await fetch("https://api.petfinder.com/v2/oauth2/token", {
-        method: "POST",
-        headers: {
-          Authorization: `Basic ${encodedAuth}`,
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: "grant_type=client_credentials",
-      });
-      const data: TokenResponse = await response.json();
+export default async function handler(req: NextApiRequest, res: NextApiResponse<TokenResponse>) {
+  if (req.method !== 'POST') {
+    return;
+  }
 
-      setTokenResponse(data);
-    };
+  try {
+    const response = await fetch('https://api.petfinder.com/v2/oauth2/token', {
+      method: 'POST',
+      body: `grant_type=client_credentials&client_id=${clientId}&client_secret=${clientSecret}`,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    });
 
-    getToken();
-  }, [req]);
+    const data: TokenResponse = await response.json();
 
-  return tokenResponse as TokenResponse;
-};
-
-export default useTokenResponse;
+    res.status(200).json(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
