@@ -30,7 +30,7 @@ export default function Orgs() {
   return (
 <div className="bg-gray-100 px-4 py-8">
   <h1 className="text-3xl font-bold mb-4">Organizations</h1>
-  <p className="text-lg mb-4">Find your new furry friend from our list of adoptable dogs in Missoula.</p>
+  <p className="text-lg mb-4">These guys are the best and deserve your support. Reach out to them today!</p>
   {token ? <Organizations/> : <p>Loading...</p>}
 </div>
 

@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import DogsInMissoula from '../components/DogsInMissoula';
+import { useState, useEffect } from "react";
+import DogsInMissoula from "../components/DogsInMissoula";
 
 interface TokenResponse {
   access_token: string;
@@ -8,15 +8,15 @@ interface TokenResponse {
 }
 
 const fetchToken = async (): Promise<TokenResponse> => {
-  const response = await fetch('/api/petfinder/token', {
-    method: 'POST'
+  const response = await fetch("/api/petfinder/token", {
+    method: "POST",
   });
 
   return response.json();
 };
 
 export default function Dogs() {
-  const [token, setToken] = useState('');
+  const [token, setToken] = useState("");
 
   useEffect(() => {
     const getToken = async () => {
@@ -28,9 +28,9 @@ export default function Dogs() {
   }, []);
 
   return (
-    <div className= 'px-4'>
-    <h1>Dogs in Missoula</h1>
-    {token ? <DogsInMissoula token={token} /> : 'Loading...'}
-  </div>
+    <div className="px-4">
+      <h1 className="text-4xl font-bold text-center m-5">Adopt these dogs!</h1>
+      {token ? <DogsInMissoula token={token} /> : "Loading..."}
+    </div>
   );
 }
