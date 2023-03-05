@@ -146,3 +146,5 @@ export const AnimalFilter = ({ onFilterChange }: AnimalFilterProps) => {
     </div>
   );
 };
+
+export default AnimalFilter;
