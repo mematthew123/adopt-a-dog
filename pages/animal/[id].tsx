@@ -1,7 +1,7 @@
 import usePetfinderToken from "@/libs/hooks/usePetfinderToken";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import { Animal}  from "../../components/DogsInMissoula";
+import { Animal } from "../../components/DogsInMissoula";
 
 interface Props {
   token: string;
@@ -24,7 +24,7 @@ export default function AnimalDetails({}: Props) {
       house_trained: false,
       declawed: false,
       special_needs: false,
-      shots_current: false
+      shots_current: false,
     },
     environment: { children: false, dogs: false, cats: false },
     tags: [],
@@ -41,10 +41,10 @@ export default function AnimalDetails({}: Props) {
         city: "",
         state: "",
         postcode: "",
-        country: ""
-      }
+        country: "",
+      },
     },
-    organization: { id: "", name: "" }
+    organization: { id: "", name: "" },
   });
 
   useEffect(() => {
@@ -53,15 +53,20 @@ export default function AnimalDetails({}: Props) {
         return;
       }
 
-      const response = await fetch(`https://api.petfinder.com/v2/animals/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json"
+      const response = await fetch(
+        `https://api.petfinder.com/v2/animals/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
         }
-      });
+      );
 
       if (!response.ok) {
-        console.error(`Error fetching animal: ${response.status} ${response.statusText}`);
+        console.error(
+          `Error fetching animal: ${response.status} ${response.statusText}`
+        );
         return;
       }
 
@@ -72,26 +77,24 @@ export default function AnimalDetails({}: Props) {
     fetchAnimal();
   }, [id, token, isLoaded]);
 
-    return (    
+  return (
     <div>
       <h2 className="text-2xl font-bold">{animal.name}</h2>
       <p className="text-lg font-medium">{animal.species}</p>
       <p className="text-lg font-medium">{animal.age}</p>
       <p className="text-lg whitespace-pre-wrap">{animal.description}</p>
-        <p className="text-lg">{animal.status}</p>
+      <p className="text-lg">{animal.status}</p>
 
       <div className="flex justify-center">
-
-{animal.photos.length > 0 ? (
-  <img
-    src={animal.photos[0].small}
-    alt={animal.name}
-    className="my-2"
-  />
-) : (
-  <p>No photo available</p>
-)}
-</div>
+        {animal.photos.map((photo) => (
+          <img
+            src={photo.large}
+            key={photo.full}
+            alt={animal.name}
+            className="my-2"
+          />
+        ))}
+      </div>
 
       <p className="text-lg">
         {animal.attributes.spayed_neutered
@@ -105,9 +108,43 @@ export default function AnimalDetails({}: Props) {
       </p>
       <p className="text-lg">
         {animal.attributes.declawed ? "Declawed" : "Not Declawed"}
-        </p>
-        </div>
-        );
-        }
+      </p>
+      <p className="text-lg">
+        {animal.attributes.special_needs ? "Special Needs" : "No Special Needs"}
+      </p>
+      <p className="text-lg">
+        {animal.attributes.shots_current ? "Shots Current" : "Shots Not Current"}
+      </p>
 
-    
+      <p className="text-lg">
+        {animal.environment.children ? "Good with Children" : "Not Good with Children"}
+      </p>
+      <p className="text-lg">
+        {animal.environment.dogs ? "Good with Dogs" : "Not Good with Dogs"}
+      </p>
+      <p className="text-lg">
+        {animal.environment.cats ? "Good with Cats" : "Not Good with Cats"}
+      </p>
+          
+      <p className="text-lg">
+  Tags: {animal.tags.join(', ')}
+</p>
+
+
+      <p className="text-lg">Organization Name: {animal?.organization?.name}</p>
+<p className="text-lg">Organization ID: {animal?.organization?.id}</p>
+
+<h3 className="text-xl font-bold mt-4">Contact Details</h3>
+<p className="text-lg">Email: {animal?.contact?.email ?? 'N/A'}</p>
+<p className="text-lg">Phone: {animal?.contact?.phone ?? 'N/A'}</p>
+<p className="text-lg">Address: {animal?.contact?.address?.address1 ?? 'N/A'}</p>
+<p className="text-lg">{animal?.contact?.address?.address2}</p>
+<p className="text-lg">{animal?.contact?.address?.city}, {animal?.contact?.address?.state} {animal?.contact?.address?.postcode}</p>
+<p className="text-lg">{animal?.contact?.address?.country ?? 'N/A'}</p>
+
+
+
+
+    </div>
+  );
+}

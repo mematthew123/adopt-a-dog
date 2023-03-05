@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import DogsInMissoula from '../components/DogsInMissoula';
+import Organizations from '@/components/Organizations';
 
 interface TokenResponse {
   access_token: string;
@@ -15,7 +15,7 @@ const fetchToken = async (): Promise<TokenResponse> => {
   return response.json();
 };
 
-export default function Dogs() {
+export default function Orgs() {
   const [token, setToken] = useState('');
 
   useEffect(() => {
@@ -28,9 +28,11 @@ export default function Dogs() {
   }, []);
 
   return (
-    <div className= 'px-4'>
-    <h1>Dogs in Missoula</h1>
-    {token ? <DogsInMissoula token={token} /> : 'Loading...'}
-  </div>
+<div className="bg-gray-100 px-4 py-8">
+  <h1 className="text-3xl font-bold mb-4">Organizations</h1>
+  <p className="text-lg mb-4">Find your new furry friend from our list of adoptable dogs in Missoula.</p>
+  {token ? <Organizations/> : <p>Loading...</p>}
+</div>
+
   );
 }

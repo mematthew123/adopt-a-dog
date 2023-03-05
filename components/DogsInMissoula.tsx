@@ -1,4 +1,5 @@
 import router from "next/router";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 
 interface Props {
@@ -47,117 +48,118 @@ interface AnimalApiResponse {
 
 export default function DogsInMissoula({ token }: Props) {
   const [animals, setAnimals] = useState<Animal[]>([]);
-
-  // we want an onclicik function that will take the animal id and then push to the next page
+  const [page, setPage] = useState(1); // declare page state variable
+  const limit = 6; // set limit to 10 results per page
 
   const onClick = (id: number) => {
     router.push(`/animal/${id}`);
-    
+  };
+
+  const fetchAnimals = async (page: number, limit: number) => {
+    const response = await fetch(
+      `https://api.petfinder.com/v2/animals?type=dog&location=Missoula%2C+MT&page=${page}&limit=${limit}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const data: AnimalApiResponse = await response.json();
+
+    setAnimals(data.animals);
   };
 
   useEffect(() => {
-    const fetchAnimals = async () => {
-      const response = await fetch(
-        "https://api.petfinder.com/v2/animals?type=dog&location=Missoula%2C+MT",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+    fetchAnimals(page, limit);
+  }, [token, page, limit]); // add page and limit to dependencies array
 
-      const data: AnimalApiResponse = await response.json();
+  const handleNextPage = () => {
+    setPage(page + 1);
+  };
 
-      setAnimals(data.animals);
-    };
+  const handlePreviousPage = () => {
+    if (page > 1) {
+      setPage(page - 1);
+      fetchAnimals(page - 1, limit);
+    }
+  };
 
-    fetchAnimals();
-  }, [token]);
-
-  console.log(animals);
   return (
-    <div>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:justify-between">
       {animals.map((animal) => (
-        <div key={animal.id} className="mb-6">
+        <div key={animal.id} className="p-2 border border-gray-300 rounded-lg">
           <h2 className="text-2xl font-bold">{animal.name}</h2>
-          <p className="text-lg font-medium">{animal.species}</p>
-          <p className="text-lg font-medium">{animal.age}</p>
-          <p className="text-lg whitespace-pre-wrap">{animal.description}</p>
 
           {animal.photos.length > 0 ? (
-            <img
-              src={animal.photos[0].small}
-              alt={animal.name}
-              className="my-2"
-            />
+            <div className="my-2 flex justify-center">
+              <Image
+                src={animal.photos[0].medium}
+                width={300}
+                height={300}
+                alt={""}
+              />
+            </div>
           ) : (
-            <p>No photo available</p>
+            <p className=" text-center font-medium text-xl ">
+              Image coming soon
+            </p>
           )}
 
-          <p className="text-lg">
-            {animal.attributes.spayed_neutered
-              ? "Spayed/Neutered"
-              : "Not Spayed/Neutered"}
-          </p>
-          <p className="text-lg">
-            {animal.attributes.house_trained
-              ? "House Trained"
-              : "Not House Trained"}
-          </p>
-          <p className="text-lg">
-            {animal.attributes.declawed ? "Declawed" : "Not Declawed"}
-          </p>
-          <p className="text-lg">
-            {animal.attributes.special_needs
-              ? "Special Needs"
-              : "No Special Needs"}
-          </p>
-          <p className="text-lg">
-            {animal.attributes.shots_current
-              ? "Shots Current"
-              : "Shots Not Current"}
-          </p>
-          <p className="text-lg">
-            {animal.environment.children
-              ? "Good with Children"
-              : "Not Good with Children"}
-          </p>
-          <p className="text-lg">
-            {animal.environment.dogs ? "Good with Dogs" : 'Not Good" with Dogs'}
-          </p>
-          <p>
-            {animal.environment.cats ? "Good with Cats" : "Not Good with Cats"}
-          </p>
-          <p className="text-lg">{animal.tags.join(", ")}</p>
-          <p className="text-lg">{animal.gender}</p>
-          <p className="text-lg">{animal.size}</p>
-          <p className="text-lg">{animal.coat}</p>
-          <p className="text-lg">
-            {animal.colors.primary}, {animal.colors.secondary},{" "}
-            {animal.colors.tertiary}
-          </p>
-          <p className="text-lg">{animal.contact.email}</p>
-          <p className="text-lg">{animal.contact.phone}</p>
-          <p className="text-lg">{animal.contact.address.address1}</p>
-          <p className="text-lg">{animal.contact.address.address2}</p>
-          <p className="text-lg">{animal.contact.address.city}</p>
-          <p className="text-lg">{animal.contact.address.state}</p>
-          <p className="text-lg">{animal.contact.address.postcode}</p>
-          <p className="text-lg">{animal.contact.address.country}</p>
+          <h2 className="text-2xl font-semibold">About</h2>
+          <div>
+            <h3 className="text-lg font-semibold">Personality</h3>
+            <p className="text-lg">{animal.tags.join(", ")}</p>
+            <div className="flex flex-col">
+              <h3 className="text-lg font-semibold">Gender</h3>
+              <p className="text-lg">{animal.gender}</p>
+              <h3 className="text-lg font-semibold">Size</h3>
+
+              <p className="text-lg">{animal.size}</p>
+              <h3 className="text-lg font-semibold">Coat</h3>
+              <p className="text-lg">{animal.coat}</p>
+              <p className="text-lg">{animal.colors.primary}</p>
+              <p className="text-lg">{animal.colors.secondary}</p>
+              <p className="text-lg">{animal.colors.tertiary}</p>
+            </div>
+          </div>
+
+          <div>
+            <h3 className="text-lg font-semibold">Contact</h3>
+            <p className="text-lg">
+              <a href={`mailto:${animal.contact.email}`}>
+                {animal.contact.email}
+              </a>
+            </p>
+            <p className="text-lg">
+              <a href={`tel:${animal.contact.phone}`}>{animal.contact.phone}</a>
+            </p>
+            <p className="text-lg">{animal.contact.address.address1}</p>
+            <p className="text-lg">{animal.contact.address.address2}</p>
+            <p className="text-lg">{animal.contact.address.city}</p>
+            <p className="text-lg">{animal.contact.address.state}</p>
+            <p className="text-lg">{animal.contact.address.postcode}</p>
+            <p className="text-lg">{animal.contact.address.country}</p>
+          </div>
+
           {/* <p className="text-lg">{animal.organization.id}</p> */}
+          {/* <p className="text-lg">{animal
+  
+      {/* <p className="text-lg">{animal.organization.id}</p> */}
           {/* <p className="text-lg">{animal.organization.name}</p> */}
           <button
             className="hover:bg-blue-700 text-black font-bold py-2 px-4 rounded"
             onClick={() => onClick(animal.id)}
           >
-            View details
+            More Info
           </button>
-          
 
           <hr className="my-6" />
         </div>
       ))}
+      <button onClick={handleNextPage}>Next Page</button>
+      <button onClick={handlePreviousPage}>Previous Page</button>
     </div>
   );
 }
