@@ -98,8 +98,9 @@ export default function AnimalDetails({}: Props) {
               key={photo.medium}
               alt={animal.name}
               className="my-2 rounded-lg"
-              width={200}
-              height={200}
+              width={300}
+              height={300}
+              loading="lazy"
             />
           ))}
         </div>
@@ -125,6 +126,8 @@ export default function AnimalDetails({}: Props) {
         } text-lg mt-2 description-section`}
       >
         <div className="text-center mt-4 p-4 flex flex-col justify-center items-center">
+          <p>{animal.gender}</p>
+          <p>{animal.size}</p>
           <p>{animal.attributes.spayed_neutered ? "Spayed/Neutered" : ""}</p>
           <p>{animal.attributes.house_trained ? "House Trained" : ""}</p>
           <p>{animal.attributes.declawed ? "Declawed" : ""}</p>

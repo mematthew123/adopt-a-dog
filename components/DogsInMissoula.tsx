@@ -116,13 +116,14 @@ export default function DogsInMissoula({ token }: Props) {
         <div key={animal.id} className="p-2 border border-gray-300 rounded-lg place-content-center">
           <h2 className="text-2xl font-bold">{animal.name}</h2>
           {animal.photos.length > 0 ? (
-            <div className="my-2 flex justify-center">
+            <div className="my-2 flex justify-center aspect-auto">
               <Image
                 src={animal.photos[0].medium}
                 width={300}
                 height={300}
                 alt={""}
-                className="rounded-lg h-80 w-80"
+                className="rounded-lg h-80 w-80 aspect-w-1 aspect-h-1"
+                loading="eager"
               />
             </div>
           ) : (
@@ -134,12 +135,6 @@ export default function DogsInMissoula({ token }: Props) {
           <div>
             <h3 className="text-lg font-semibold">Personality</h3>
             <p className="text-lg">{animal.tags.join(", ")}</p>
-            <div className="flex flex-col">
-              <h3 className="text-lg font-semibold">Gender</h3>
-              <p className="text-lg">{animal.gender}</p>
-              <h3 className="text-lg font-semibold">Size</h3>
-              <p className="text-lg">{animal.size}</p>
-            </div>
           </div>
           <div>
             <h3 className="text-lg font-semibold underline">Contact</h3>
@@ -152,13 +147,14 @@ export default function DogsInMissoula({ token }: Props) {
               <a href={`tel:${animal.contact.phone}`}>{animal.contact.phone}</a>
             </p>
           </div>
+         
+          <hr className="my-6" />
           <button
-            className="hover:bg-blue-700 text-black font-bold py-2 px-4 rounded"
+            className="hover:bg-blue-700 text-black font-bold py-2 px-4 rounded underline"
             onClick={() => onClick(animal.id)}
           >
             More Info
           </button>
-          <hr className="my-6" />
         </div>
       ))}
     
