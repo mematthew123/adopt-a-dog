@@ -113,7 +113,7 @@ export default function DogsInMissoula({ token }: Props) {
 
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:justify-between">
       {animals.map((animal) => (
-        <div key={animal.id} className="p-2 border border-gray-300 rounded-lg">
+        <div key={animal.id} className="p-2 border border-gray-300 rounded-lg place-content-center">
           <h2 className="text-2xl font-bold">{animal.name}</h2>
           {animal.photos.length > 0 ? (
             <div className="my-2 flex justify-center">
@@ -122,6 +122,7 @@ export default function DogsInMissoula({ token }: Props) {
                 width={300}
                 height={300}
                 alt={""}
+                className="rounded-lg h-80 w-80"
               />
             </div>
           ) : (
@@ -150,12 +151,6 @@ export default function DogsInMissoula({ token }: Props) {
             <p className="text-lg text-blue-400 ">
               <a href={`tel:${animal.contact.phone}`}>{animal.contact.phone}</a>
             </p>
-            {/* <p className="text-lg">{animal.contact.address.address1}</p>
-            <p className="text-lg">{animal.contact.address.address2}</p>
-            <p className="text-lg">{animal.contact.address.city}</p> */}
-            {/* <p className="text-lg">{animal.contact.address.state}</p>
-            <p className="text-lg">{animal.contact.address.postcode}</p>
-            <p className="text-lg">{animal.contact.address.country}</p> */}
           </div>
           <button
             className="hover:bg-blue-700 text-black font-bold py-2 px-4 rounded"
@@ -166,9 +161,13 @@ export default function DogsInMissoula({ token }: Props) {
           <hr className="my-6" />
         </div>
       ))}
-      <button onClick={handlePreviousPage}>Previous Page</button>
-      <button onClick={handleNextPage}>Next Page</button>
+    
     </div>
+    <div className="flex justify-between">
+  <button className="hover:bg-blue-700 text-black font-bold py-2 px-4 mb-2 rounded" onClick={handlePreviousPage}>Previous Page</button>
+  <button className="hover:bg-blue-700 text-black font-bold py-2 px-4 mb-2 rounded" onClick={handleNextPage}>Next Page</button>
+</div>
+
     </div>
 
   );

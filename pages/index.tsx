@@ -40,7 +40,7 @@ export default function Index() {
           >
           </nav>
           <p className="mt-8 text-center text-base text-gray-400">
-            &copy; 2021 Adopt MT. All rights reserved.
+            &copy; 2023 Adopt MT. All rights reserved.
           </p>
         </div>
       </footer>
