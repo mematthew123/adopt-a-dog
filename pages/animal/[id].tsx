@@ -106,12 +106,14 @@ export default function AnimalDetails({}: Props) {
         </div>
       </div>
 
-      <div className="text-center mt-4 p-4 flex flex-col justify-center items-center">
+      <div className="text-center mt-2 p-4 flex flex-col justify-center items-center">
         <h1 className="text-2xl font-bold">{animal.name}</h1>
-        <h2 className="text-xl font-bold text-emerald-600">100%  {animal.status}</h2>
+        <h2 className="text-xl font-bold text-emerald-600">
+          100% {animal.status}
+        </h2>
       </div>
 
-      <div className="text-center mt-4 p-4 flex flex-col justify-center items-center">
+      <div className="text-center mt-2 p-4 flex flex-col justify-center items-center">
         <h2 className="text-2xl font-bold">Description</h2>
         <button
           className="text-lg font-semibold text-emerald-600 focus:outline-none"
@@ -125,9 +127,14 @@ export default function AnimalDetails({}: Props) {
           isExpanded ? "block" : "hidden"
         } text-lg mt-2 description-section`}
       >
-        <div className="text-center mt-4 p-4 flex flex-col justify-center items-center">
+        <div className="text-center mt-2 p-4 flex flex-col justify-center items-center">
+          <p>{animal.age}</p>
           <p>{animal.gender}</p>
           <p>{animal.size}</p>
+          <p>{animal.coat}</p>
+          <p>{animal.colors.primary}</p>
+          <p>{animal.colors.secondary}</p>
+          <p>{animal.colors.tertiary}</p>
           <p>{animal.attributes.spayed_neutered ? "Spayed/Neutered" : ""}</p>
           <p>{animal.attributes.house_trained ? "House Trained" : ""}</p>
           <p>{animal.attributes.declawed ? "Declawed" : ""}</p>
@@ -139,10 +146,7 @@ export default function AnimalDetails({}: Props) {
         </div>
       </div>
       <div className="text-center mt-4 p-4 flex flex-col justify-center items-center">
-
-
-
-      <h2 className="text-2xl font-bold">Personality</h2>
+        <h2 className="text-2xl font-bold">Personality</h2>
         <button
           className="text-lg font-semibold text-emerald-600 focus:outline-none"
           onClick={togglePersonalityExpand}
@@ -156,29 +160,24 @@ export default function AnimalDetails({}: Props) {
         } text-lg mt-2 description-section`}
       >
         <div className="text-center mt-4 p-4 flex flex-col justify-center items-center">
-          <h2 className="text-2xl font-bold">Personality</h2>
-          <button
-            className="text-lg font-semibold text-emerald-600 focus:outline-none"
-            onClick={togglePersonalityExpand}
-          >
-            {personalityExpanded ? "Hide" : "Show"}
-          </button>
-          {personalityExpanded && (
-            <ul className="list-none">
-              {animal.tags.map((tag) => (
-                <li key={tag}>🐶 {tag}</li>
-              ))}
-            </ul>
+          {animal.tags.length > 0 ? (
+            personalityExpanded && (
+              <ul className="list-none">
+                {animal.tags.map((tag) => (
+                  <li key={tag}>🐶 {tag}</li>
+                ))}
+              </ul>
+            )
+          ) : (
+            <div className="text-lg">
+              <p>There is no personality information for this animal.</p>
+            </div>
           )}
         </div>
+      </div>
 
-
-        
-        </div>
-
-      <div className="text-center mt-4 p-4 flex flex-col justify-center items-center">
-
-      <h2 className="text-2xl font-bold">Contact</h2>
+      <div className="text-center mt-4 p-4 mb-4 flex flex-col justify-center items-center">
+        <h2 className="text-2xl font-bold">Contact</h2>
         <p className="text-lg text-blue-400">
           <a href={`mailto:${animal.contact.email}`}>{animal.contact.email}</a>
         </p>
@@ -186,7 +185,6 @@ export default function AnimalDetails({}: Props) {
           <a href={`tel:${animal.contact.phone}`}>{animal.contact.phone}</a>
         </p>
       </div>
-
     </>
   );
 }
