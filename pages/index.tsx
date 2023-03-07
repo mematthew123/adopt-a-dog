@@ -13,7 +13,7 @@ export default function Index() {
             </h1>
             <p className="mt-5 text-xl text-gray-500">
               Looking for a new furry friend? We have a variety of dogs and cats
-              available for adoption.
+              available for adoption in western Montana.
             </p>
             <div className="mt-8 flex items-center">
               <Link href="/dogs">

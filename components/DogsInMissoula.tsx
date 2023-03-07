@@ -113,77 +113,72 @@ export default function DogsInMissoula({ token }: Props) {
         }}
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:justify-between">
-        {animals.map((animal) => (
-          <div
-            key={animal.id}
-            className="p-2 border border-gray-300 rounded-lg place-content-center"
-          >
-            <h2 className="text-2xl font-bold">{animal.name}</h2>
-            {animal.photos.length > 0 ? (
-              <div className="my-2 flex justify-center aspect-auto">
-                <Image
-                  src={animal.photos[0].medium}
-                  width={300}
-                  height={300}
-                  alt={""}
-                  className="rounded-lg h-80 w-80 aspect-w-1 aspect-h-1"
-                  loading="eager"
-                />
-              </div>
-            ) : (
-              <p className=" text-center font-medium text-xl ">
-                Image coming soon
-              </p>
-            )}
-            <h2 className="text-2xl font-semibold">About</h2>
-            <div>
-              <h3 className="text-lg font-semibold">Personality</h3>
-              {animal.tags.length === 0 ? (
-                <p className="text-lg">There is no personality information for this animal</p>
-              ) : (
-                <p className="text-lg">{animal.tags.join(", ")}</p>
-              )}
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold underline">Contact</h3>
-              <p className="text-lg text-blue-400">
-                <a href={`mailto:${animal.contact.email}`}>
-                  {animal.contact.email}
-                </a>
-              </p>
-              <p className="text-lg text-blue-400 ">
-                <a href={`tel:${animal.contact.phone}`}>
-                  {animal.contact.phone}
-                </a>
-              </p>
-            </div>
-
-            <hr className="my-6" />
-            <button
-              className="hover:bg-blue-700 text-black font-bold py-2 px-4 rounded underline"
-              onClick={() => onClick(animal.id)}
-            >
-              More Info
-            </button>
-          </div>
-        ))}
+<div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:justify-between">
+  {animals.map((animal) => (
+    <div
+      key={animal.id}
+      className="p-2 border border-gray-300 rounded-lg place-content-center"
+    >
+      <h2 className="text-2xl font-bold mb-2">{animal.name}</h2>
+      {animal.photos.length > 0 ? (
+        <div className="my-2 flex justify-center aspect-auto">
+          <Image
+            src={animal.photos[0].medium}
+            width={300}
+            height={300}
+            alt={""}
+            className="rounded-lg h-80 w-80 aspect-w-1 aspect-h-1"
+            loading="eager"
+          />
+        </div>
+      ) : (
+        <p className="text-center font-medium text-xl">Image coming soon</p>
+      )}
+      <h2 className="text-2xl font-semibold my-2">About</h2>
+      <div className="my-2">
+        <h3 className="text-lg font-semibold mb-2">Personality</h3>
+        {animal.tags.length === 0 ? (
+          <p className="text-lg">There is no personality information for this animal</p>
+        ) : (
+          <p className="text-lg">{animal.tags.join(", ")}</p>
+        )}
       </div>
-      <div className="flex justify-between">
-        <button
-          className="hover:bg-blue-700 text-black font-bold py-2 px-4 mb-2 rounded"
-          onClick={handlePreviousPage}
-        >
-          Previous Page
-        </button>
-        <button
-          className="hover:bg-blue-700 text-black font-bold py-2 px-4 mb-2 rounded"
-          onClick={handleNextPage}
-        >
-          Next Page
-        </button>
+
+      <div className="my-2">
+        <h3 className="text-lg font-semibold underline mb-2">Contact</h3>
+        <p className="text-lg text-blue-400 mb-2">
+          <a href={`mailto:${animal.contact.email}`}>{animal.contact.email}</a>
+        </p>
+        <p className="text-lg text-blue-400">
+          <a href={`tel:${animal.contact.phone}`}>{animal.contact.phone}</a>
+        </p>
       </div>
+
+      <hr className="my-6" />
+      <button
+        className="hover:bg-blue-700 text-black font-bold py-2 px-4 rounded underline"
+        onClick={() => onClick(animal.id)}
+      >
+        More Info
+      </button>
+    </div>
+  ))}
+</div>
+<div className="flex justify-between my-4">
+  <button
+    className="hover:bg-blue-700 text-black font-bold py-2 px-4 rounded"
+    onClick={handlePreviousPage}
+  >
+    Previous Page
+  </button>
+  <button
+    className="hover:bg-blue-700 text-black font-bold py-2 px-4 rounded"
+    onClick={handleNextPage}
+  >
+    Next Page
+  </button>
+</div>
+
     </div>
   );
 }

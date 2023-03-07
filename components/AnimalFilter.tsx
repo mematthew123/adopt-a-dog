@@ -62,93 +62,69 @@ export const AnimalFilter = ({ onFilterChange }: AnimalFilterProps) => {
 
   return (
     <div className="container mx-auto">
-      <div className="flex flex-col justify-center items-center p-4">
-        <h3 className="text-center text-2xl font-bold mb-4">
-          {" "}
-          Find the perfect doggo
-        </h3>
-        <div className="flex flex-col justify-center items-center">
-          <div className="sm:flex sm:flex-row sm:justify-center sm:items-center">
-            {/* Age */}
-            <select
-              className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
-              value={age}
-              onChange={handleAgeChange}
-            >
-              <option className="text-lg font-semibold" value="">
-                Age
-              </option>
-              {ageOptions.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
+  <div className="flex flex-col justify-center items-center p-4">
+    <h3 className="text-center text-2xl font-bold mb-4">
+      Find the perfect doggo
+    </h3>
+    <div className="flex flex-col justify-center items-center">
+      <div className="sm:flex sm:flex-row sm:justify-center sm:items-center">
+        {/* Age */}
+        <select
+          className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline text-lg font-semibold"
+          value={age}
+          onChange={handleAgeChange}
+        >
+          <option value="">Age</option>
+          {ageOptions.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
 
-            {/* Tags */}
+        {/* Gender */}
+        <select
+          className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline text-lg font-semibold"
+          value={gender}
+          onChange={handleGenderChange}
+        >
+          <option value="">Gender</option>
+          {genderOptions.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
 
-            {/* <select
-              className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
-              value={tags}
-              onChange={handleTagsChange}
-            >
-              <option className="text-lg font-semibold" value="">
-                Personality
-              </option>
-              {tagOptions.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select> */}
-
-            {/* Gender */}
-
-            <select
-              className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
-              value={gender}
-              onChange={handleGenderChange}
-            >
-              <option className="text-lg font-semibold" value="">
-                Gender
-              </option>
-              {genderOptions.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-
-            {/* Size */}
-            <select
-              className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
-              value={size}
-              onChange={handleSizeChange}
-            >
-              <option className="text-lg font-semibold" value="">
-                Size
-              </option>
-              {sizeOptions.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-
-        {/* Clear Filters */}
-        <div className="flex justify-center items-center mt-4">
-          <button
-            className="bg-cyan-400 hover:bg-cyan-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="button"
-            onClick={handleStartOver}
-          >
-            Start Over
-          </button>
-        </div>
+        {/* Size */}
+        <select
+          className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline text-lg font-semibold"
+          value={size}
+          onChange={handleSizeChange}
+        >
+          <option value="">Size</option>
+          {sizeOptions.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
       </div>
     </div>
+
+    {/* Clear Filters */}
+    <div className="flex justify-center items-center mt-4">
+      <button
+        className="bg-cyan-400 hover:bg-cyan-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        type="button"
+        onClick={handleStartOver}
+      >
+        Start Over
+      </button>
+    </div>
+  </div>
+</div>
+
   );
 };
 
