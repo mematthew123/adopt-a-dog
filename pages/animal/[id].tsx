@@ -108,82 +108,117 @@ export default function AnimalDetails({}: Props) {
 
       <div className="text-center mt-2 p-4 flex flex-col justify-center items-center">
         <h1 className="text-2xl font-bold">{animal.name}</h1>
-        <h2 className="text-xl font-bold text-emerald-600">
-          100% {animal.status}
-        </h2>
-      </div>
+        <p>
+          Sweet {animal.name} is a {animal.age} {animal.gender} who is{" "}
+          {animal.status}, and is looking for a new forever home.
+        </p>
+        <br/>
+        {/* <p> {animal.name} does well with {animal.environment.children ? "children" : "no children"}.
+        Which means {animal.name} is {animal.environment.dogs ? "good with dogs" : "not good with dogs"}.
+         {animal.name} is {animal.environment.cats ? "good with cats" : "not good with cats"}.
 
-      <div className="text-center mt-2 p-4 flex flex-col justify-center items-center">
-        <h2 className="text-2xl font-bold">Description</h2>
-        <button
-          className="text-lg font-semibold text-emerald-600 focus:outline-none"
-          onClick={toggleExpand}
-        >
-          {isExpanded ? "Hide" : "Show"}
-        </button>
-      </div>
-      <div
-        className={`${
-          isExpanded ? "block" : "hidden"
-        } text-lg mt-2 description-section`}
-      >
+
+        </p> */}
         <div className="text-center mt-2 p-4 flex flex-col justify-center items-center">
-          <p>{animal.age}</p>
-          <p>{animal.gender}</p>
-          <p>{animal.size}</p>
-          <p>{animal.coat}</p>
-          <p>{animal.colors.primary}</p>
-          <p>{animal.colors.secondary}</p>
-          <p>{animal.colors.tertiary}</p>
-          <p>{animal.attributes.spayed_neutered ? "Spayed/Neutered" : ""}</p>
-          <p>{animal.attributes.house_trained ? "House Trained" : ""}</p>
-          <p>{animal.attributes.declawed ? "Declawed" : ""}</p>
-          <p>{animal.attributes.special_needs ? "Special Needs" : ""}</p>
-          <p>{animal.attributes.shots_current ? "Shots Current" : ""}</p>
-          <p>{animal.environment.children ? "Good with Children" : ""}</p>
-          <p>{animal.environment.dogs ? "Good with Dogs" : ""}</p>
-          <p>{animal.environment.cats ? "Good with Cats" : ""}</p>
+          <h2 className="text-2xl font-bold">Physical Characteristics</h2>
+          <button
+            className="text-lg font-semibold text-emerald-600 focus:outline-none"
+            onClick={toggleExpand}
+          >
+            {isExpanded ? "Hide" : "Show"}
+          </button>
         </div>
-      </div>
-      <div className="text-center mt-4 p-4 flex flex-col justify-center items-center">
-        <h2 className="text-2xl font-bold">Personality</h2>
-        <button
-          className="text-lg font-semibold text-emerald-600 focus:outline-none"
-          onClick={togglePersonalityExpand}
+        <div
+          className={`${
+            isExpanded ? "block" : "hidden"
+          } text-lg mt-2 description-section`}
         >
-          {personalityExpanded ? "Hide" : "Show"}
-        </button>
-      </div>
-      <div
-        className={`${
-          personalityExpanded ? "block" : "hidden"
-        } text-lg mt-2 description-section`}
-      >
-        <div className="text-center mt-4 p-4 flex flex-col justify-center items-center">
-          {animal.tags.length > 0 ? (
-            personalityExpanded && (
-              <ul className="list-none">
-                {animal.tags.map((tag) => (
-                  <li key={tag}>🐶 {tag}</li>
-                ))}
-              </ul>
-            )
-          ) : (
-            <div className="text-lg">
-              <p>There is no personality information for this animal.</p>
-            </div>
-          )}
+          <div className="text-center mt-2 p-4 flex flex-col justify-center items-center">
+            <p>Size: {animal.size}</p>
+            <p>Primary color: {animal.colors.primary}</p>
+            <p>Secondary color: {animal.colors.secondary}</p>
+            <p>Tertiary color: {animal.colors.tertiary}</p>
+            <p>
+              {animal.attributes.spayed_neutered
+                ? "Spayed/Neutered"
+                : "Not spayed/neutered"}
+            </p>
+            <p>
+              {animal.attributes.house_trained
+                ? "House trained"
+                : "Not house trained"}
+            </p>
+            <p>{animal.attributes.declawed ? "Declawed" : "Not declawed"}</p>
+            <p>
+              {animal.attributes.special_needs
+                ? "Special needs"
+                : "No special needs"}
+            </p>
+            <p>
+              {animal.attributes.shots_current
+                ? "Shots current"
+                : "Shots not current"}
+            </p>
+            <p>
+              {animal.environment.children
+                ? "Good with children"
+                : "Not good with children"}
+            </p>
+            <p>
+              {animal.environment.dogs
+                ? "Good with dogs"
+                : "Not good with dogs"}
+            </p>
+            <p>
+              {animal.environment.cats
+                ? "Good with cats"
+                : "Not good with cats"}
+            </p>
+          </div>
         </div>
-      </div>
-
-      <div className="text-center mt-4 p-4 mb-4 flex flex-col justify-center items-center">
-        <h2 className="text-2xl font-bold">Contact</h2>
-        <p className="text-lg text-blue-400">
-          <a href={`mailto:${animal.contact.email}`}>{animal.contact.email}</a>
-        </p>
-        <p className="text-lg text-blue-400 ">
-          <a href={`tel:${animal.contact.phone}`}>{animal.contact.phone}</a>
-        </p>
+        <div className="text-center mt-4 p-4 flex flex-col justify-center items-center">
+          <h2 className="text-2xl font-bold">Personality</h2>
+          <button
+            className="text-lg font-semibold text-emerald-600 focus:outline-none"
+            onClick={togglePersonalityExpand}
+          >
+            {personalityExpanded ? "Hide" : "Show"}
+          </button>
+        </div>
+        <div
+          className={`${
+            personalityExpanded ? "block" : "hidden"
+          } text-lg mt-2 description-section`}
+        >
+          <div className="text-center mt-4 p-4 flex flex-col justify-center items-center">
+            {animal.tags.length > 0 ? (
+              personalityExpanded && (
+                <ul className="list-none">
+                  {animal.tags.map((tag) => (
+                    <li key={tag}>🐶 {tag}</li>
+                  ))}
+                </ul>
+              )
+            ) : (
+              <div className="text-lg">
+                <p>No personality information available </p>
+              </div>
+            )}
+          </div>
+        </div>
+        <div className="text-center mt-4 p-4 mb-4 flex flex-col justify-center items-center">
+          <h2 className="text-2xl font-bold">Contact</h2>
+          <p className="text-lg">
+            If you are interested in adopting {animal.name}, please contact
+            <p className=" text-sky-800 font-semibold text-lg">
+              <a href={`mailto:${animal.contact.email}`}>
+                {animal.contact.email}
+              </a>{" "}
+              <a href={`tel:${animal.contact.phone}`}>{animal.contact.phone}</a>
+              .
+            </p>
+          </p>
+        </div>
       </div>
     </>
   );
