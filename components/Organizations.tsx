@@ -54,7 +54,7 @@ export default function Organizations({}: Props) {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-gray-50">
       {organizations.map((org) => (
         <div
           key={org.id}

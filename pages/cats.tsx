@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const cats = () => {
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className="bg-gray-50 min-h-screen">
       <h2 className=" py-2 font-bold underline-offest-1 text-3xl text-center ">
         Coming Soon, Cats!
       </h2>
