@@ -109,7 +109,7 @@ export default function AnimalDetails({}: Props) {
 <div className="text-center mt-4 p-4">
   <h1 className="text-3xl font-bold mb-2">{animal.name}</h1>
   <p className="text-lg leading-relaxed">
-    Sweet {animal.name} is a {animal.age} {animal.gender} who is{" "}
+ {animal.name} is a {animal.gender} who is considered a {animal.age} by the  who is{" "}
     {animal.status}, and is looking for a new forever home.
   </p>
 
@@ -193,10 +193,10 @@ export default function AnimalDetails({}: Props) {
   >
     <div className="text-center mt-4 p-4 flex flex-col justify-center items-center">
       {animal.tags.length > 0 ? (
-        <ul className="list-disc list-inside">
+        <ul className="list-none list-inside">
           {animal.tags.map((tag) => (
             <li key={tag} className="text-xl">
-              🐶 {tag}
+              {tag}
             </li>
           ))}
         </ul>
