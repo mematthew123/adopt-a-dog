@@ -226,7 +226,6 @@ export default function AnimalDetails({}: Props) {
                 <a href={`tel:${animal.contact.phone}`}>
                   {animal.contact.phone}
                 </a>
-                .s
               </span>
             </p>
           </div>
