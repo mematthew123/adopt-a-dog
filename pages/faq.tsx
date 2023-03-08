@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import Question from "../components/Question";
 
-const questions = [
+interface Faq {
+  id: number;
+  question: string;
+  answer: string;
+}
+
+const questions: Faq[] = [
   {
     id: 1,
     question: "What is Adopt MT?",
@@ -34,10 +40,10 @@ const questions = [
   },
 ];
 
-const FAQ = () => {
-  const [expandedQuestionIds, setExpandedQuestionIds] = useState([]);
+const FAQ: React.FC = () => {
+  const [expandedQuestionIds, setExpandedQuestionIds] = useState<number[]>([]);
 
-  const handleQuestionClick = (id) => {
+  const handleQuestionClick = (id: number) => {
     if (expandedQuestionIds.includes(id)) {
       setExpandedQuestionIds(expandedQuestionIds.filter((q) => q !== id));
     } else {
