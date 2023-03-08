@@ -1,7 +1,7 @@
 import usePetfinderToken from "@/libs/hooks/usePetfinderToken";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import { Animal } from "../../components/DogsInMissoula";
+import { Animal } from  "@/components/Animal";
 import Image from "next/image";
 
 interface Props {
@@ -116,7 +116,7 @@ export default function AnimalDetails({}: Props) {
   <div className="text-center mt-4 p-4 flex flex-col justify-center items-center">
     <h2 className="text-3xl font-bold mb-2">Physical Characteristics</h2>
     <button
-      className="text-lg font-semibold text-emerald-600 focus:outline-none"
+      className="text-lg font-semibold text-black focus:outline-none"
       onClick={toggleExpand}
     >
       {isExpanded ? "Hide" : "Show"}
@@ -180,7 +180,7 @@ export default function AnimalDetails({}: Props) {
   <div className="flex flex-col justify-center items-center mb-4">
     <h2 className="text-2xl font-bold mb-2">Personality</h2>
     <button
-      className="text-lg font-semibold text-emerald-600 focus:outline-none"
+      className="text-lg font-semibold text-black focus:outline-none"
       onClick={togglePersonalityExpand}
     >
       {personalityExpanded ? "Hide" : "Show"}
