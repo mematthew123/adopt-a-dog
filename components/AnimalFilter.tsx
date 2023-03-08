@@ -70,12 +70,12 @@ export const AnimalFilter = ({ onFilterChange, breeds }: AnimalFilterProps) => {
 
   return (
     <>
-<button
-  className="block bg-stone-100 text-black font-bold py-2 px-4 rounded mb-4"
-  onClick={toggleFilterVisibility}
->
-  {filterVisible ? "Hide Filter" : "Show Filter"}
-</button>
+      <button
+        className="block bg-stone-100 text-black font-bold py-2 px-4 rounded mb-4"
+        onClick={toggleFilterVisibility}
+      >
+        {filterVisible ? "Hide Filter" : "Show Filter"}
+      </button>
       <div
         className={`${
           filterVisible ? "" : "hidden"
@@ -88,78 +88,75 @@ export const AnimalFilter = ({ onFilterChange, breeds }: AnimalFilterProps) => {
           <div className="flex flex-col justify-center items-center">
             <div className="sm:flex sm:flex-row sm:justify-center sm:items-center">
               {/* Breed */}
-            <select
-              className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline text-lg font-semibold"
-              onChange={handleBreedChange}
+              <select
+                className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline text-lg font-semibold"
+                onChange={handleBreedChange}
+              >
+                <option value="">Breed</option>
+                {breeds.map((breed) => (
+                  <option key={breed} value={breed}>
+                    {breed}
+                  </option>
+                ))}
+              </select>
+
+              {/* Age */}
+              <select
+                className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline text-lg font-semibold"
+                value={age}
+                onChange={handleAgeChange}
+              >
+                <option value="">Age</option>
+                {ageOptions.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+
+              {/* Gender */}
+              <select
+                className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline text-lg font-semibold"
+                value={gender}
+                onChange={handleGenderChange}
+              >
+                <option value="">Gender</option>
+                {genderOptions.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+
+              {/* Size */}
+              <select
+                className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline text-lg font-semibold"
+                value={size}
+                onChange={handleSizeChange}
+              >
+                <option value="">Size</option>
+                {sizeOptions.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          {/* Clear Filters */}
+          <div className="flex justify-center items-center mt-4">
+            <button
+              className="bg-indigo-600 hover:bg-indigo-700  text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              type="button"
+              onClick={handleStartOver}
             >
-
-<option value="">Breed</option>
-              {breeds.map((breed) => (
-                <option key={breed} value={breed}>
-                  {breed}
-                </option>
-              ))}
-            </select>
-
-
-        {/* Age */}
-        <select
-          className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline text-lg font-semibold"
-          value={age}
-          onChange={handleAgeChange}
-        >
-          <option value="">Age</option>
-          {ageOptions.map((option) => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
-
-        {/* Gender */}
-        <select
-          className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline text-lg font-semibold"
-          value={gender}
-          onChange={handleGenderChange}
-        >
-          <option value="">Gender</option>
-          {genderOptions.map((option) => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
-
-        {/* Size */}
-        <select
-          className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline text-lg font-semibold"
-          value={size}
-          onChange={handleSizeChange}
-        >
-          <option value="">Size</option>
-          {sizeOptions.map((option) => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
+              Start Over
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
-
-    {/* Clear Filters */}
-    <div className="flex justify-center items-center mt-4">
-      <button
-        className="bg-cyan-400 hover:bg-cyan-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-        type="button"
-        onClick={handleStartOver}
-      >
-        Start Over
-      </button>
-    </div>
-  </div>
-</div>
-</>
-
+    </>
   );
 };
 

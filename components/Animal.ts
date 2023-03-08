@@ -1,4 +1,5 @@
 export interface Animal {
+    breed: string;
     id: number;
     name: string;
     species: string;
