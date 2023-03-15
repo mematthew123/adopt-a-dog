@@ -14,7 +14,7 @@ export default function Document() {
         <meta property="og:title" content="Adopt MT" key="title" />
         <meta property="og:description" content="Adopt a furry friend today" />
         <meta property="og:image" content="/flowerdog.jpg" />
-        <meta property="og:url" content="https://adopt-mt.vercel.app/" />
+        <meta property="og:url" content="https://adoptmt.org/" />
       </Head>
       <body>
         <Main />
