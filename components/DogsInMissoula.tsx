@@ -98,12 +98,13 @@ export default function DogsInMissoula({ token }: Props) {
               <div className="my-2 flex justify-center aspect-auto">
                 <Link href={`/animal/${animal.id}`}>
                   <Image
-                    src={animal.photos[0].medium}
+                    src={animal.photos[0].large}
+                    sizes="(max-width: 640px) 00px, (max-width: 1024px) 600px, 1200px"
                     width={300}
                     height={300}
                     alt={""}
                     className="rounded-lg h-80 w-80 aspect-w-1 aspect-h-1 hover:shadow-2xl"
-                    loading="eager"
+                    priority
                   />
                 </Link>
               </div>
