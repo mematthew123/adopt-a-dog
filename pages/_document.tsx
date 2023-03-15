@@ -14,6 +14,10 @@ export default function Document() {
         <meta property="og:title" content="Adopt MT" key="title" />
         <meta property="og:description" content="Adopt a furry friend today" />
         <meta property="og:image" content="/flowerdog.jpg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:type" content="website" />
+      
         <meta property="og:url" content="https://adoptmt.org/" />
       </Head>
       <body>
