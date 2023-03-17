@@ -1,8 +1,8 @@
 import router from "next/router";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { AnimalFilter } from "../components/AnimalFilter";
-import { FilterCriteria } from "../components/AnimalFilter";
+import { AnimalFilter } from "./AnimalFilter";
+import { FilterCriteria } from "./AnimalFilter";
 import { Animal, AnimalApiResponse } from "./Animal";
 import Link from "next/link";
 
@@ -10,7 +10,7 @@ interface Props {
   token: string;
 }
 
-export default function DogsInMissoula({ token }: Props) {
+export default function DogList({ token }: Props) {
   const [animals, setAnimals] = useState<Animal[]>([]);
   const [page, setPage] = useState<number>(() => {
     const savedPage = localStorage.getItem("currentPage") as string; // get the saved page number from local storage

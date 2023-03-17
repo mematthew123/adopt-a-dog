@@ -1,31 +1,10 @@
-import { useState, useEffect } from 'react';
 import Organizations from '@/components/Organizations';
+import usePetfinderToken from 'libs/hooks/usePetfinderToken';
 
-interface TokenResponse {
-  access_token: string;
-  token_type: string;
-  expires_in: number;
-}
 
-const fetchToken = async (): Promise<TokenResponse> => {
-  const response = await fetch('/api/petfinder/token', {
-    method: 'POST'
-  });
-
-  return response.json();
-};
 
 export default function Orgs() {
-  const [token, setToken] = useState('');
-
-  useEffect(() => {
-    const getToken = async () => {
-      const data = await fetchToken();
-      setToken(data.access_token);
-    };
-
-    getToken();
-  }, []);
+  const [token, isLoaded] = usePetfinderToken();
 
   return (
 <div className="px-4 py-8">
