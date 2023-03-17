@@ -15,45 +15,44 @@ interface AnimalFilterProps {
 }
 
 export const AnimalFilter = ({ onFilterChange, breeds }: AnimalFilterProps) => {
-  const [species, setSpecies] = useState<string>("");
-  const [age, setAge] = useState<string>("");
-  const [gender, setGender] = useState<string>("");
-  const [size, setSize] = useState<string>("");
-  const [tags, setTags] = useState<string>("");
+  const [filter, setFilter] = useState<FilterCriteria>({});
+
+  const updateFilter = (newFilter: FilterCriteria) => {
+    setFilter((prevFilter) => {
+      const updatedFilter = { ...prevFilter, ...newFilter };
+      onFilterChange(updatedFilter);
+      return updatedFilter;
+    });
+  };
 
   const handleStartOver = () => {
-    setSpecies("");
-    setAge("");
-    setGender("");
-    setSize("");
+    setFilter({});
     onFilterChange({});
-    setTags("");
   };
 
   const handleBreedChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const breed = event.target.value;
-    onFilterChange({ breed });
+    updateFilter({ breed });
   };
 
   const handleTagsChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    const tag = event.target.value;
-    setTags(tag);
-    onFilterChange({ tags });
+    const tags = event.target.value;
+    updateFilter({ tags });
   };
 
   const handleAgeChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const age = event.target.value;
-    onFilterChange({ age });
+    updateFilter({ age });
   };
 
   const handleGenderChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const gender = event.target.value;
-    onFilterChange({ gender });
+    updateFilter({ gender });
   };
 
   const handleSizeChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const size = event.target.value;
-    onFilterChange({ size });
+    updateFilter({ size });
   };
 
   const sizeOptions = ["small", "medium", "large", "Extra-large"];
@@ -103,7 +102,6 @@ export const AnimalFilter = ({ onFilterChange, breeds }: AnimalFilterProps) => {
               {/* Age */}
               <select
                 className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline text-lg font-semibold"
-                value={age}
                 onChange={handleAgeChange}
               >
                 <option value="">Age</option>
@@ -117,7 +115,6 @@ export const AnimalFilter = ({ onFilterChange, breeds }: AnimalFilterProps) => {
               {/* Gender */}
               <select
                 className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline text-lg font-semibold"
-                value={gender}
                 onChange={handleGenderChange}
               >
                 <option value="">Gender</option>
@@ -131,7 +128,6 @@ export const AnimalFilter = ({ onFilterChange, breeds }: AnimalFilterProps) => {
               {/* Size */}
               <select
                 className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline text-lg font-semibold"
-                value={size}
                 onChange={handleSizeChange}
               >
                 <option value="">Size</option>
