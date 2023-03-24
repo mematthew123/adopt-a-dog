@@ -1,21 +1,25 @@
-import { useState } from 'react'
-import { Dialog } from '@headlessui/react'
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-import Link from 'next/link'
+import { useState } from "react";
+import { Dialog } from "@headlessui/react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import Link from "next/link";
+import { SignedIn, UserButton, SignedOut, SignInButton } from "@clerk/nextjs";
 
 const navigation = [
-  { name: 'About us', href: '/about' },
-  { name: 'FAQ', href: '/faq' },
-  { name: 'Organizations', href: '/organizations' },
-  { name: 'Dogs', href: '/dogs' },
-]
+  { name: "About us", href: "/about" },
+  { name: "FAQ", href: "/faq" },
+  { name: "Organizations", href: "/organizations" },
+  { name: "Dogs", href: "/dogs" },
+];
 
 export default function Header() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <header className="bg-transparent">
-      <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
+      <nav
+        className="flex items-center justify-between p-6 lg:px-8"
+        aria-label="Global"
+      >
         <div className="flex lg:flex-1">
           <Link href="/">
             <p className="text-2xl font-bold text-gray-900">Adopt MT</p>
@@ -28,8 +32,19 @@ export default function Header() {
             onClick={() => setMobileMenuOpen(true)}
           >
             <span className="sr-only">Open main menu</span>
-            <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+            <svg
+              className="h-6 w-6"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
             </svg>
           </button>
         </div>
@@ -38,7 +53,9 @@ export default function Header() {
             {navigation.map((item) => (
               <li key={item.name}>
                 <Link href={item.href}>
-                  <p className="text-sm font-semibold leading-6 text-gray-900">{item.name}</p>
+                  <p className="text-sm font-semibold leading-6 text-gray-900">
+                    {item.name}
+                  </p>
                 </Link>
               </li>
             ))}
@@ -46,21 +63,32 @@ export default function Header() {
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            {/* Replace auth with Clerk.dev */}
-            {/* Log in <span aria-hidden="true">&rarr;</span> */}
+            <SignedIn>
+              {/* Mount the UserButton component */}
+              <UserButton />
+            </SignedIn>
+            <SignedOut>
+              {/* Signed out users get sign in button */}
+              <SignInButton />
+            </SignedOut>
           </a>
         </div>
       </nav>
 
-      <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
+      <Dialog
+        as="div"
+        className="lg:hidden"
+        open={mobileMenuOpen}
+        onClose={setMobileMenuOpen}
+      >
         <div className="fixed inset-0 z-10" />
         <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
             <a href="#" className="-m-1.5 p-1.5">
               <span className="sr-only">Adopt a dog</span>
               <Link href="/">
-            <p className="text-2xl font-bold text-gray-900">Adopt MT</p>
-          </Link>
+                <p className="text-2xl font-bold text-gray-900">Adopt MT</p>
+              </Link>
             </a>
             <button
               type="button"
@@ -97,5 +125,5 @@ export default function Header() {
         </Dialog.Panel>
       </Dialog>
     </header>
-  )
+  );
 }
