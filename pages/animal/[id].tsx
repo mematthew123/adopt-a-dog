@@ -1,7 +1,7 @@
 import usePetfinderToken from "@/libs/hooks/usePetfinderToken";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import { Animal } from "@/components/Animal";
+import { Animal } from "@/types";
 import Image from "next/image";
 
 interface Props {

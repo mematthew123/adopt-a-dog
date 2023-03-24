@@ -3,8 +3,11 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { AnimalFilter } from "./AnimalFilter";
 import { FilterCriteria } from "./AnimalFilter";
-import { Animal, AnimalApiResponse } from "./Animal";
+import { Animal, AnimalApiResponse } from "../types";
 import Link from "next/link";
+import { HeartIcon } from "@heroicons/react/24/outline";
+import { HeartIcon as FilledHeartIcon } from "@heroicons/react/24/solid";
+import { useUser } from "@clerk/clerk-react";
 
 interface Props {
   token: string;
@@ -15,6 +18,13 @@ export default function DogList({ token }: Props) {
   const [page, setPage] = useState<number>(() => {
     const savedPage = localStorage.getItem("currentPage") as string; // get the saved page number from local storage
     return savedPage ? parseInt(savedPage) : 1; // default to page 1 if no value is saved
+  });
+
+  const { user } = useUser();
+
+  const [favorites, setFavorites] = useState<number[]>(() => {
+    const savedFavorites = localStorage.getItem("favorites");
+    return savedFavorites ? JSON.parse(savedFavorites) : [];
   });
 
   const limit = 6;
@@ -75,6 +85,23 @@ export default function DogList({ token }: Props) {
     }
   };
 
+  // Function to toggle the favorite status of an animal
+  const toggleFavorite = (id: number) => {
+    setFavorites((prevFavorites) => {
+      if (prevFavorites.includes(id)) {
+        // Remove the animal from favorites
+        const updatedFavorites = prevFavorites.filter((favId) => favId !== id);
+        localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+        return updatedFavorites;
+      } else {
+        // Add the animal to favorites
+        const updatedFavorites = [...prevFavorites, id];
+        localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+        return updatedFavorites;
+      }
+    });
+  };
+
   return (
     <div>
       <AnimalFilter
@@ -93,7 +120,22 @@ export default function DogList({ token }: Props) {
             key={animal.id}
             className="p-2 border border-gray-300 rounded-lg place-content-center"
           >
-            <h2 className="text-2xl font-bold mb-2">{animal.name}</h2>
+            <h2 className="text-2xl font-bold mb-2">
+              {user &&
+                (favorites.includes(animal.id) ? (
+                  <FilledHeartIcon
+                    className="h-6 w-6 inline-block mr-2 cursor-pointer"
+                    onClick={() => toggleFavorite(animal.id)}
+                  />
+                ) : (
+                  <HeartIcon
+                    className="h-6 w-6 inline-block mr-2 cursor-pointer"
+                    onClick={() => toggleFavorite(animal.id)}
+                  />
+                ))}
+
+              {animal.name}
+            </h2>
             {animal.photos.length > 0 ? (
               <div className="my-2 flex justify-center aspect-auto">
                 <Link href={`/animal/${animal.id}`}>

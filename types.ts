@@ -37,4 +37,11 @@ export interface Animal {
   
   export interface AnimalApiResponse {
     animals: Animal[];
+    animal: Animal[];
+    pagination: {
+      count_per_page: number;
+      total_count: number;
+      current_page: number;
+      total_pages: number;
+    };
   }
