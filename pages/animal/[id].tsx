@@ -1,8 +1,12 @@
 import usePetfinderToken from "@/libs/hooks/usePetfinderToken";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import { Animal } from "@/components/Animal";
+import { Animal } from "@/types";
 import Image from "next/image";
+import { HeartIcon } from "@heroicons/react/24/outline";
+import { HeartIcon as FilledHeartIcon } from "@heroicons/react/24/solid";
+import { useUser } from "@clerk/clerk-react";
+import { useFavorite } from "@/context/favoriteContext";
 
 interface Props {
   token: string;
@@ -14,6 +18,10 @@ export default function AnimalDetails({}: Props) {
   const { id } = router.query;
   const [isExpanded, setIsExpanded] = useState(false);
   const [personalityExpanded, setPersonalityExpanded] = useState(false);
+
+  const { user } = useUser();
+  const { toggleFavorite, getUserFavorites } = useFavorite();
+  const userFavorites = user ? getUserFavorites(user.id) : [];
 
   function togglePersonalityExpand() {
     setPersonalityExpanded(!personalityExpanded);
@@ -108,7 +116,24 @@ export default function AnimalDetails({}: Props) {
       </div>
 
       <div className="text-center mt-4 p-4">
-        <h1 className="text-3xl font-bold mb-2">{animal.name}</h1>
+        <h1 className="text-3xl font-bold mb-2">
+          {user &&
+            (userFavorites.some(
+              (favorite) => favorite.animalId === animal.id
+            ) ? (
+              <FilledHeartIcon
+                className="h-10 w-10 inline-block mr-2 cursor-pointer"
+                onClick={() => toggleFavorite(user.id, animal.id)}
+              />
+            ) : (
+              <HeartIcon
+                className="h-10 w-10 inline-block mr-2 cursor-pointer"
+                onClick={() => toggleFavorite(user.id, animal.id)}
+              />
+            ))}
+
+          {animal.name}
+        </h1>
         <p className="text-lg leading-relaxed">
           {animal.name} is a {animal.gender} and is considered to be a{" "}
           {animal.age} doggo.

@@ -147,7 +147,7 @@ export const AnimalFilter = ({ onFilterChange, breeds }: AnimalFilterProps) => {
               type="button"
               onClick={handleStartOver}
             >
-              Start Over
+             Clear Filters
             </button>
           </div>
         </div>

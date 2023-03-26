@@ -3,8 +3,13 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { AnimalFilter } from "./AnimalFilter";
 import { FilterCriteria } from "./AnimalFilter";
-import { Animal, AnimalApiResponse } from "./Animal";
+import { Animal, AnimalApiResponse } from "../types";
 import Link from "next/link";
+import { HeartIcon } from "@heroicons/react/24/outline";
+import { HeartIcon as FilledHeartIcon } from "@heroicons/react/24/solid";
+import { useUser } from "@clerk/clerk-react";
+import { useFavorite } from "@/context/favoriteContext";
+import React from "react";
 
 interface Props {
   token: string;
@@ -13,9 +18,13 @@ interface Props {
 export default function DogList({ token }: Props) {
   const [animals, setAnimals] = useState<Animal[]>([]);
   const [page, setPage] = useState<number>(() => {
-    const savedPage = localStorage.getItem("currentPage") as string; // get the saved page number from local storage
-    return savedPage ? parseInt(savedPage) : 1; // default to page 1 if no value is saved
+  const savedPage = localStorage.getItem("currentPage") as string; // get the saved page number from local storage
+  return savedPage ? parseInt(savedPage) : 1; // default to page 1 if no value is saved
   });
+
+  const { user } = useUser();
+  const { toggleFavorite, getUserFavorites } = useFavorite();
+  const userFavorites = user ? getUserFavorites(user.id) : [];
 
   const limit = 6;
   const [filter, setFilter] = useState<FilterCriteria>({});
@@ -85,6 +94,7 @@ export default function DogList({ token }: Props) {
           "Pit Bull Terrier",
           "Shih Tzu",
           "Boxer",
+          "German Shepard"
         ]}
       />
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:justify-between">
@@ -93,7 +103,25 @@ export default function DogList({ token }: Props) {
             key={animal.id}
             className="p-2 border border-gray-300 rounded-lg place-content-center"
           >
-            <h2 className="text-2xl font-bold mb-2">{animal.name}</h2>
+            {" "}
+            <h2 className="text-2xl font-bold mb-2">
+              {user &&
+                (userFavorites.some(
+                  (favorite) => favorite.animalId === animal.id
+                ) ? (
+                  <FilledHeartIcon
+                    className="h-6 w-6 inline-block mr-2 cursor-pointer"
+                    onClick={() => toggleFavorite(user.id, animal.id)}
+                  />
+                ) : (
+                  <HeartIcon
+                    className="h-6 w-6 inline-block mr-2 cursor-pointer"
+                    onClick={() => toggleFavorite(user.id, animal.id)}
+                  />
+                ))}
+
+              {animal.name}
+            </h2>
             {animal.photos.length > 0 ? (
               <div className="my-2 flex justify-center aspect-auto">
                 <Link href={`/animal/${animal.id}`}>
@@ -124,7 +152,6 @@ export default function DogList({ token }: Props) {
                 <p className="text-lg">{animal.tags.join(", ")}</p>
               )}
             </div>
-
             <div className="my-2">
               <h3 className="text-lg font-semibold underline mb-2">Contact</h3>
               <p className="text-lg text-sky-800  mb-2">
@@ -138,7 +165,6 @@ export default function DogList({ token }: Props) {
                 </a>
               </p>
             </div>
-
             <hr className="my-6" />
             <button
               className="hover:bg-stone-100 text-black font-bold py-2 px-4 rounded underline"
