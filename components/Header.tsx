@@ -113,12 +113,14 @@ export default function Header() {
                 ))}
               </div>
               <div className="py-6">
-                {/* <a
-                  href="#"
-                  className="-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Log in
-                </a> */}
+                <SignedIn>
+                  {/* Mount the UserButton component */}
+                  <UserButton />
+                </SignedIn>
+                <SignedOut>
+                  {/* Signed out users get sign in button */}
+                  <SignInButton />
+                </SignedOut>
               </div>
             </div>
           </div>
