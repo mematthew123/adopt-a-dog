@@ -1,48 +1,68 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { useUser } from "@clerk/clerk-react";
 
-interface FavoriteContextType {
-  favorites: number[];
-  setFavorites: React.Dispatch<React.SetStateAction<number[]>>;
+export interface Favorite {
+  userId: string;
+  animalId: number;
 }
 
-const FavoriteContext = createContext<FavoriteContextType | undefined>(
-  undefined
-);
+export interface FavoriteContextData {
+  favorites: Favorite[];
+  toggleFavorite: (userId: string, animalId: number) => void;
+  getUserFavorites: (userId: string) => Favorite[];
+}
 
-export const useFavorite = () => {
-  const context = useContext(FavoriteContext);
-  if (!context) {
-    throw new Error(
-      "useFavorite must be used within a FavoriteContextProvider"
-    );
-  }
-  return context;
-};
+const FavoriteContext = createContext<FavoriteContextData>({
+  favorites: [],
+  toggleFavorite: () => {},
+  getUserFavorites: () => [],
+});
 
 interface FavoriteContextProviderProps {
   children: React.ReactNode;
 }
 
-export function FavoriteContextProvider({
-  children,
-}: FavoriteContextProviderProps) {
-  const [favorites, setFavorites] = useState<number[]>([]);
-  const { user } = useUser();
-  const userId = user?.id;
+export const FavoriteContextProvider: React.FC<FavoriteContextProviderProps> = ({ children }) => {
+  const [favorites, setFavorites] = useState<Favorite[]>(() => {
+    if (typeof window === "undefined") {
+      return [];
+    }
+  
+    const savedFavorites = localStorage.getItem("favorites");
+    return savedFavorites ? JSON.parse(savedFavorites) : [];
+  });
+  
+  const getUserFavorites = (userId: string) => {
+    return favorites.filter((fav) => fav.userId === userId);
+  };
+  
 
   useEffect(() => {
-    const savedFavorites = localStorage.getItem(`favorites-${userId}`);
-    setFavorites(savedFavorites ? JSON.parse(savedFavorites) : []);
-  }, [userId]);
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  }, [favorites]);
 
-  useEffect(() => {
-    localStorage.setItem(`favorites-${userId}`, JSON.stringify(favorites));
-  }, [favorites, userId]);
+  const toggleFavorite = (userId: string, animalId: number) => {
+    setFavorites((prevFavorites) => {
+      const existingFavorite = prevFavorites.find(
+        (fav) => fav.userId === userId && fav.animalId === animalId
+      );
+
+      if (existingFavorite) {
+        const updatedFavorites = prevFavorites.filter(
+          (fav) => fav !== existingFavorite
+        );
+        return updatedFavorites;
+      } else {
+        const updatedFavorites = [...prevFavorites, { userId, animalId }];
+        return updatedFavorites;
+      }
+    });
+  };
 
   return (
-    <FavoriteContext.Provider value={{ favorites, setFavorites }}>
+    <FavoriteContext.Provider value={{ favorites, toggleFavorite, getUserFavorites }}>
       {children}
     </FavoriteContext.Provider>
   );
-}
+  }  
+
+export const useFavorite = () => useContext(FavoriteContext);

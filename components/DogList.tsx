@@ -8,6 +8,8 @@ import Link from "next/link";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { HeartIcon as FilledHeartIcon } from "@heroicons/react/24/solid";
 import { useUser } from "@clerk/clerk-react";
+import { useFavorite } from "@/context/favoriteContext";
+import React from "react";
 
 interface Props {
   token: string;
@@ -21,11 +23,8 @@ export default function DogList({ token }: Props) {
   });
 
   const { user } = useUser();
-
-  const [favorites, setFavorites] = useState<number[]>(() => {
-    const savedFavorites = localStorage.getItem("favorites");
-    return savedFavorites ? JSON.parse(savedFavorites) : [];
-  });
+  const { toggleFavorite, getUserFavorites } = useFavorite();
+  const userFavorites = user ? getUserFavorites(user.id) : [];
 
   const limit = 6;
   const [filter, setFilter] = useState<FilterCriteria>({});
@@ -85,23 +84,6 @@ export default function DogList({ token }: Props) {
     }
   };
 
-  // Function to toggle the favorite status of an animal
-  const toggleFavorite = (id: number) => {
-    setFavorites((prevFavorites) => {
-      if (prevFavorites.includes(id)) {
-        // Remove the animal from favorites
-        const updatedFavorites = prevFavorites.filter((favId) => favId !== id);
-        localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
-        return updatedFavorites;
-      } else {
-        // Add the animal to favorites
-        const updatedFavorites = [...prevFavorites, id];
-        localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
-        return updatedFavorites;
-      }
-    });
-  };
-
   return (
     <div>
       <AnimalFilter
@@ -120,17 +102,20 @@ export default function DogList({ token }: Props) {
             key={animal.id}
             className="p-2 border border-gray-300 rounded-lg place-content-center"
           >
+            {" "}
             <h2 className="text-2xl font-bold mb-2">
               {user &&
-                (favorites.includes(animal.id) ? (
+                (userFavorites.some(
+                  (favorite) => favorite.animalId === animal.id
+                ) ? (
                   <FilledHeartIcon
                     className="h-6 w-6 inline-block mr-2 cursor-pointer"
-                    onClick={() => toggleFavorite(animal.id)}
+                    onClick={() => toggleFavorite(user.id, animal.id)}
                   />
                 ) : (
                   <HeartIcon
                     className="h-6 w-6 inline-block mr-2 cursor-pointer"
-                    onClick={() => toggleFavorite(animal.id)}
+                    onClick={() => toggleFavorite(user.id, animal.id)}
                   />
                 ))}
 
@@ -166,7 +151,6 @@ export default function DogList({ token }: Props) {
                 <p className="text-lg">{animal.tags.join(", ")}</p>
               )}
             </div>
-
             <div className="my-2">
               <h3 className="text-lg font-semibold underline mb-2">Contact</h3>
               <p className="text-lg text-sky-800  mb-2">
@@ -180,7 +164,6 @@ export default function DogList({ token }: Props) {
                 </a>
               </p>
             </div>
-
             <hr className="my-6" />
             <button
               className="hover:bg-stone-100 text-black font-bold py-2 px-4 rounded underline"

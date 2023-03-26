@@ -3,25 +3,28 @@ import Image from "next/image";
 import Link from "next/link";
 import { Animal, AnimalApiResponse } from "../types";
 import usePetfinderToken from "libs/hooks/usePetfinderToken";
+import { useUser } from "@clerk/clerk-react";
+import { useFavorite } from "context/favoriteContext";
+
 
 interface Props {}
 
 export default function UserFavorites({}: Props) {
-  const [favorites, setFavorites] = useState<number[]>([]);
+  const { user } = useUser();
+  const { getUserFavorites } = useFavorite();
+  const userFavorites = user ? getUserFavorites(user.id) : [];
   const [favoriteAnimals, setFavoriteAnimals] = useState<Animal[]>([]);
   const [token, isLoaded] = usePetfinderToken();
 
   useEffect(() => {
-    const savedFavorites = localStorage.getItem("favorites");
-    setFavorites(savedFavorites ? JSON.parse(savedFavorites) : []);
-    console.log("Favorites:", favorites);
-  }, []);
+    console.log("User Favorites:", userFavorites);
+  }, [userFavorites]);
 
   useEffect(() => {
     const fetchFavoriteAnimals = async () => {
-      const favoriteAnimalPromises = favorites.map(async (id) => {
+      const favoriteAnimalPromises = userFavorites.map(async (fav) => {
         const response = await fetch(
-          `https://api.petfinder.com/v2/animals/${id}`,
+          `https://api.petfinder.com/v2/animals/${fav.animalId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -39,10 +42,15 @@ export default function UserFavorites({}: Props) {
       setFavoriteAnimals(fetchedFavoriteAnimals.flat());
     };
 
-    if (favorites.length > 0 && isLoaded) {
+    if (userFavorites.length > 0 && isLoaded) {
       fetchFavoriteAnimals();
     }
-  }, [favorites, isLoaded, token]);
+  }, [userFavorites, isLoaded, token]);
+
+  if (!isLoaded) {
+    return <p>Loading...</p>;
+  }
+
 
   return (
     <div>
