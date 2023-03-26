@@ -62,8 +62,7 @@ export default function Header() {
             ))}
           </ul>
         </div>
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
+        <div className="hidden lg:flex lg:flex-1 lg:justify-end text-sm font-semibold leading-6 text-gray-900">
             <SignedIn>
               {/* Mount the UserButton component */}
               <UserButton />
@@ -72,7 +71,6 @@ export default function Header() {
               {/* Signed out users get sign in button */}
               <SignInButton />
             </SignedOut>
-          </a>
         </div>
       </nav>
 
@@ -113,7 +111,7 @@ export default function Header() {
                   </a>
                 ))}
               </div>
-              <div className="py-6">
+              <div className="py-6  text-base font-semibold leading-7 hover:bg-gray-50 text-gray-900">
                 <SignedIn>
                   {/* Mount the UserButton component */}
                   <UserButton />
