@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { useUser } from "@clerk/nextjs";
 import UserFavorites from "../components/UserFavorites";
 
@@ -13,7 +14,7 @@ export default function Profile() {
     return (
       <>
         <div className=" justify-center  text-center font-bold flex align-middle  ">
-          Hello {user.fullName}!
+        <h1 className="text-3xl font-bold mb-6">{user.fullName}'s Favorites</h1>
         </div>
         <div>
         {isLoaded ? <UserFavorites  /> : "Loading..."}
@@ -22,5 +23,5 @@ export default function Profile() {
     );
   }
 
-  return <div>Not signed in</div>;
+  return <h2 className=" justify-center  text-center font-bold flex align-middle  "> You are not currently signed in</h2>
 }

@@ -18,8 +18,8 @@ interface Props {
 export default function DogList({ token }: Props) {
   const [animals, setAnimals] = useState<Animal[]>([]);
   const [page, setPage] = useState<number>(() => {
-    const savedPage = localStorage.getItem("currentPage") as string; // get the saved page number from local storage
-    return savedPage ? parseInt(savedPage) : 1; // default to page 1 if no value is saved
+  const savedPage = localStorage.getItem("currentPage") as string; // get the saved page number from local storage
+  return savedPage ? parseInt(savedPage) : 1; // default to page 1 if no value is saved
   });
 
   const { user } = useUser();
@@ -94,6 +94,7 @@ export default function DogList({ token }: Props) {
           "Pit Bull Terrier",
           "Shih Tzu",
           "Boxer",
+          "German Shepard"
         ]}
       />
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:justify-between">

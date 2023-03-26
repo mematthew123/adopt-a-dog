@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Dialog } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { SignedIn, UserButton, SignedOut, SignInButton } from "@clerk/nextjs";
 
@@ -9,6 +9,7 @@ const navigation = [
   { name: "FAQ", href: "/faq" },
   { name: "Organizations", href: "/organizations" },
   { name: "Dogs", href: "/dogs" },
+  { name: "Favs ♡", href: "/favorites" },
 ];
 
 export default function Header() {

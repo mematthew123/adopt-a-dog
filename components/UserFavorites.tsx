@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+/* eslint-disable react/no-unescaped-entities */
+import { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Animal, AnimalApiResponse } from "../types";
@@ -6,19 +7,18 @@ import usePetfinderToken from "libs/hooks/usePetfinderToken";
 import { useUser } from "@clerk/clerk-react";
 import { useFavorite } from "context/favoriteContext";
 
-
 interface Props {}
 
 export default function UserFavorites({}: Props) {
   const { user } = useUser();
   const { getUserFavorites } = useFavorite();
-  const userFavorites = user ? getUserFavorites(user.id) : [];
   const [favoriteAnimals, setFavoriteAnimals] = useState<Animal[]>([]);
   const [token, isLoaded] = usePetfinderToken();
 
-  useEffect(() => {
-    console.log("User Favorites:", userFavorites);
-  }, [userFavorites]);
+  // Replaced useEffect with useMemo to prevent constant rerending
+   const userFavorites = useMemo(() => {
+   return user ? getUserFavorites(user.id) : [];
+  }, [user, getUserFavorites]);
 
   useEffect(() => {
     const fetchFavoriteAnimals = async () => {
@@ -33,7 +33,7 @@ export default function UserFavorites({}: Props) {
           }
         );
         const data: AnimalApiResponse = await response.json();
-        console.log("Animal data:", data); // Add this line to inspect the response
+        // console.log("Animal data:", data); // Add this line to inspect the response
 
         return data.animal;
       });
@@ -51,10 +51,15 @@ export default function UserFavorites({}: Props) {
     return <p>Loading...</p>;
   }
 
+  if (userFavorites.length === 0) {
+    return (
+      <p className=" font-semibold italic text-center  justify-center  ">
+        You have no favorites yet.... Click the heart icon next to the dogs name to add to your favorites.      </p>
+    );
+  }
 
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-6">Your Favorites</h1>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:justify-between">
         {favoriteAnimals.map((animal) => (
           <div
@@ -81,9 +86,6 @@ export default function UserFavorites({}: Props) {
                 Image coming soon
               </p>
             )}
-
-            {/* Add more animal details if needed */}
-
             <hr className="my-6" />
             <Link href={`/animal/${animal.id}`}>
               <button className="hover:bg-stone-100 text-black font-bold py-2 px-4 rounded underline">

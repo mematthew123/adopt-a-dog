@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import usePetfinderToken from 'libs/hooks/usePetfinderToken';
+import usePetfinderToken from "libs/hooks/usePetfinderToken";
 
 interface Props {}
 
@@ -67,7 +67,9 @@ export default function Organizations({}: Props) {
             <p className="text-base">{org.phone}</p>
             <p className="text-base">{org.address.address1}</p>
             <p className="text-base">{org.address.address2}</p>
-            <p className="text-base">{org.address.city}, {org.address.state}, {org.address.postcode}</p>
+            <p className="text-base">
+              {org.address.city}, {org.address.state}, {org.address.postcode}
+            </p>
           </div>
         </div>
       ))}
