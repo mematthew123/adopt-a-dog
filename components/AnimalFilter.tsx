@@ -58,6 +58,7 @@ export const AnimalFilter = ({ onFilterChange, breeds }: AnimalFilterProps) => {
   const sizeOptions = ["small", "medium", "large", "Extra-large"];
   const genderOptions = ["male", "female"];
   const ageOptions = ["baby", "young", "adult", "senior"];
+  
 
   // State variable to track whether the filter is visible
   const [filterVisible, setFilterVisible] = useState<boolean>(false);
@@ -86,7 +87,7 @@ export const AnimalFilter = ({ onFilterChange, breeds }: AnimalFilterProps) => {
           </h3>
           <div className="flex flex-col justify-center items-center">
             <div className="sm:flex sm:flex-row sm:justify-center sm:items-center">
-              {/* Breed */}
+              {/* Breed
               <select
                 className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline text-lg font-semibold"
                 onChange={handleBreedChange}
@@ -97,7 +98,7 @@ export const AnimalFilter = ({ onFilterChange, breeds }: AnimalFilterProps) => {
                     {breed}
                   </option>
                 ))}
-              </select>
+              </select> */}
 
               {/* Age */}
               <select
