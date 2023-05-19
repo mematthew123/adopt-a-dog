@@ -18,8 +18,8 @@ interface Props {
 export default function DogList({ token }: Props) {
   const [animals, setAnimals] = useState<Animal[]>([]);
   const [page, setPage] = useState<number>(() => {
-  const savedPage = localStorage.getItem("currentPage") as string; // get the saved page number from local storage
-  return savedPage ? parseInt(savedPage) : 1; // default to page 1 if no value is saved
+    const savedPage = localStorage.getItem("currentPage") as string; // get the saved page number from local storage
+    return savedPage ? parseInt(savedPage) : 1; // default to page 1 if no value is saved
   });
 
   const { user } = useUser();
@@ -45,6 +45,7 @@ export default function DogList({ token }: Props) {
     const queryParams = new URLSearchParams({
       type: "dog",
       location: "Missoula, MT",
+      distance: "150",
       page: page.toString(),
       limit: limit.toString(),
       ...filterCriteria,
@@ -94,10 +95,10 @@ export default function DogList({ token }: Props) {
           "Pit Bull Terrier",
           "Shih Tzu",
           "Boxer",
-          "German Shepard"
+          "German Shepard",
         ]}
       />
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:justify-between">
+      <div className=" bg-gray-50 grid grid-cols-1 md:grid-cols-3 gap-4 lg:justify-between">
         {animals.map((animal) => (
           <div
             key={animal.id}

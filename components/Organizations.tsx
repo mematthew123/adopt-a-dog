@@ -29,7 +29,7 @@ export default function Organizations({}: Props) {
   useEffect(() => {
     const fetchOrganizations = async () => {
       const response = await fetch(
-        "https://api.petfinder.com/v2/organizations?location=Missoula%2C+MT",
+        "https://api.petfinder.com/v2/organizations?state=MT",
         {
           headers: {
             Authorization: `Bearer ${token}`,
