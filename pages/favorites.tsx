@@ -13,7 +13,7 @@ export default function Profile() {
   if (isSignedIn) {
     return (
       <>
-        <div className=" justify-center  text-center font-bold flex align-middle  ">
+        <div className=" bg-gray-50 justify-center  text-center font-bold flex align-middle  ">
         <h1 className="text-3xl font-bold mb-6">{user.fullName}'s Favorites</h1>
         </div>
         <div>

@@ -33,8 +33,6 @@ export default function UserFavorites({}: Props) {
           }
         );
         const data: AnimalApiResponse = await response.json();
-        // console.log("Animal data:", data); // Add this line to inspect the response
-
         return data.animal;
       });
 
@@ -53,14 +51,18 @@ export default function UserFavorites({}: Props) {
 
   if (userFavorites.length === 0) {
     return (
+      <div className="bg-gray-50 ">
+
       <p className=" font-semibold italic text-center  justify-center  ">
         You have no favorites yet.... Click the heart icon next to the dogs name to add to your favorites.      </p>
+        </div>
+
     );
   }
 
   return (
     <div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:justify-between">
+      <div className=" bg-gray-50 grid grid-cols-1 md:grid-cols-3 gap-4 lg:justify-between">
         {favoriteAnimals.map((animal) => (
           <div
             key={animal.id}

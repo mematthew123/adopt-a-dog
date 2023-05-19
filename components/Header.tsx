@@ -16,7 +16,7 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="bg-transparent">
+    <header className="bg-gray-50">
       <nav
         className="flex items-center justify-between p-6 lg:px-8"
         aria-label="Global"
@@ -54,7 +54,7 @@ export default function Header() {
             {navigation.map((item) => (
               <li key={item.name}>
                 <Link href={item.href}>
-                  <p className="text-sm font-semibold leading-6 text-gray-900">
+                  <p className=" text-base font-semibold leading-6 text-gray-900">
                     {item.name}
                   </p>
                 </Link>

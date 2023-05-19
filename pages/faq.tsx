@@ -52,7 +52,7 @@ const FAQ: React.FC = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
+    <div className=" bg-gray-50 max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
         <h2 className="text-3xl font-extrabold text-gray-900">
           Frequently Asked Questions

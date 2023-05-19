@@ -99,14 +99,14 @@ export default function AnimalDetails({}: Props) {
 
   return (
     <>
-      <div className="flex flex-col justify-center items-center mt-4 border-gray-200 border-b-stone-800 border-2 rounded-lg">
+      <div className=" bg-gray-50 flex flex-col justify-center items-center  border-gray-200 border-b-stone-800 border-2 rounded-lg">
         <div className="lg:grid-flow-col grid grid-cols-2 gap-4 sm:items-center">
           {animal.photos.map((photo) => (
             <Image
               src={photo.medium}
               key={photo.medium}
               alt={animal.name}
-              className="my-2 rounded-lg"
+              className="my-2 rounded-lg bg-gray-50"
               width={300}
               height={300}
               loading="lazy"
@@ -115,7 +115,7 @@ export default function AnimalDetails({}: Props) {
         </div>
       </div>
 
-      <div className="text-center mt-4 p-4">
+      <div className="text-center p-4 bg-gray-50">
         <h1 className="text-3xl font-bold mb-2">
           {user &&
             (userFavorites.some(

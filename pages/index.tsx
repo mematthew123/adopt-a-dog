@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import Head from "next/head";
 import Link from "next/link";
 
@@ -11,12 +12,12 @@ export default function Index() {
       <Head>
         <meta property="og:title" content="Adopt MT" key="title" />
       </Head>
-      <div className="bg-gray-50">
+      <div className="bg-gray-50 h-[100vh]">
         {/* Hero section */}
-        <section className="bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section>
+          <div className=" bg-gray-50 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="py-32 md:py-48">
-              <h1 className="text-5xl sm:text-6xl font-extrabold tracking-tight text-gray-900">
+              <h1 className="text-5xl sm:text-6xl font-extrabold tracking-tight text-gray-700">
                 Adopt a Furry Friend Today
               </h1>
               <p className="mt-5 text-xl text-gray-500">
@@ -38,19 +39,6 @@ export default function Index() {
             </div>
           </div>
         </section>
-
-        {/* Footer */}
-        <footer className="bg-white">
-          <div className="max-w-7xl mx-auto py-12 px-4 overflow-hidden sm:px-6 lg:px-8">
-            <nav
-              className="-mx-5 -my-2 flex flex-wrap justify-center"
-              aria-label="Footer"
-            ></nav>
-            <p className="mt-8 text-center text-base text-gray-400">
-              &copy; 2023 Adopt MT. All rights reserved.
-            </p>
-          </div>
-        </footer>
       </div>
     </>
   );

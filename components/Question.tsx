@@ -14,7 +14,7 @@ const Question: React.FC<QuestionProps> = ({
   onQuestionClick,
 }) => {
   return (
-    <div className="pt-6">
+    <div className=" bg-gray-50 pt-6">
       <dt className="text-lg">
         <button
           className="text-left w-full flex justify-between items-start text-gray-400"
