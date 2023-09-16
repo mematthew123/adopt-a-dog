@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent, useEffect } from "react";
 
 export interface FilterCriteria {
   species?: string;
@@ -19,26 +19,21 @@ export const AnimalFilter = ({ onFilterChange, breeds }: AnimalFilterProps) => {
 
   const updateFilter = (newFilter: FilterCriteria) => {
     setFilter((prevFilter) => {
-      const updatedFilter = { ...prevFilter, ...newFilter };
-      onFilterChange(updatedFilter);
-      return updatedFilter;
+      return { ...prevFilter, ...newFilter };
     });
   };
+
+  // Use useEffect to call onFilterChange when filter changes
+  useEffect(() => {
+    onFilterChange(filter);
+  }, [filter]);
+
 
   const handleStartOver = () => {
     setFilter({});
     onFilterChange({});
   };
 
-  const handleBreedChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    const breed = event.target.value;
-    updateFilter({ breed });
-  };
-
-  const handleTagsChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    const tags = event.target.value;
-    updateFilter({ tags });
-  };
 
   const handleAgeChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const age = event.target.value;
@@ -87,18 +82,6 @@ export const AnimalFilter = ({ onFilterChange, breeds }: AnimalFilterProps) => {
           </h3>
           <div className="flex flex-col justify-center items-center">
             <div className="sm:flex sm:flex-row sm:justify-center sm:items-center">
-              {/* Breed
-              <select
-                className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline text-lg font-semibold"
-                onChange={handleBreedChange}
-              >
-                <option value="">Breed</option>
-                {breeds.map((breed) => (
-                  <option key={breed} value={breed}>
-                    {breed}
-                  </option>
-                ))}
-              </select> */}
 
               {/* Age */}
               <select

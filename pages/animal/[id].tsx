@@ -7,6 +7,7 @@ import { HeartIcon } from "@heroicons/react/24/outline";
 import { HeartIcon as FilledHeartIcon } from "@heroicons/react/24/solid";
 import { useUser } from "@clerk/clerk-react";
 import { useFavorite } from "@/context/favoriteContext";
+import Link from "next/link";
 
 interface Props {
   token: string;
@@ -138,6 +139,9 @@ export default function AnimalDetails({}: Props) {
           {animal.name} is a {animal.gender} and is considered to be a{" "}
           {animal.age} doggo.
         </p>
+        <p className="text-lg mt-4">
+          {animal.description}
+        </p>
 
         <div className="text-center mt-4 p-4">
           <div className="flex flex-col justify-center items-center mb-4">
@@ -245,12 +249,13 @@ export default function AnimalDetails({}: Props) {
             <p className="text-lg">
               If you are interested in adopting {animal.name}, please contact{" "}
               <span className=" text-sky-800 font-semibold text-lg">
-                <a href={`mailto:${animal.contact.email}`}>
+                <Link href={`mailto:${animal.contact.email}`}>
                   {animal.contact.email}
-                </a>{" "}
-                <a href={`tel:${animal.contact.phone}`}>
+              
+                </Link>
+                <Link href={`tel:${animal.contact.phone}`}>
                   {animal.contact.phone}
-                </a>
+                </Link>
               </span>
             </p>
           </div>
