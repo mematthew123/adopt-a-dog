@@ -9,9 +9,6 @@ export default function Index() {
         <title>Adopt MT</title>
         <meta property="og:title" content="Adopt MT" key="title" />
       </Head>
-      <Head>
-        <meta property="og:title" content="Adopt MT" key="title" />
-      </Head>
       <div className="bg-gray-50 h-[100vh]">
         {/* Hero section */}
         <section>

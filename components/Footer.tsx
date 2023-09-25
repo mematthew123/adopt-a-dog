@@ -12,6 +12,15 @@ const Footer = () => {
           <p className="mt-8 text-center text-base text-gray-400">
             &copy; 2023 Adopt MT. All rights reserved.
           </p>
+          <p className="mt-8 text-center text-base text-gray-400">
+            Made with ❤️ by{" "}
+            <a
+              href="https://zephyrpixels.dev"
+              className="underline"
+            >
+              Zephyr Pixels
+            </a>
+          </p>
         </div>
       </footer>
     </div>

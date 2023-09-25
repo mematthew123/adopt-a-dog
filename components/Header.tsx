@@ -63,14 +63,14 @@ export default function Header() {
           </ul>
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end text-sm font-semibold leading-6 text-gray-900">
-            <SignedIn>
-              {/* Mount the UserButton component */}
-              <UserButton />
-            </SignedIn>
-            <SignedOut>
-              {/* Signed out users get sign in button */}
-              <SignInButton />
-            </SignedOut>
+          <SignedIn>
+            {/* Mount the UserButton component */}
+            <UserButton />
+          </SignedIn>
+          <SignedOut>
+            {/* Signed out users get sign in button */}
+            <SignInButton />
+          </SignedOut>
         </div>
       </nav>
 
@@ -83,12 +83,10 @@ export default function Header() {
         <div className="fixed inset-0 z-10" />
         <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
-            <a href="#" className="-m-1.5 p-1.5">
-              <span className="sr-only">Adopt a dog</span>
-              <Link href="/">
-                <p className="text-2xl font-bold text-gray-900">Adopt MT</p>
-              </Link>
-            </a>
+            <span className="sr-only">Adopt a dog</span>
+            <Link href="/">
+              <p className="text-2xl font-bold text-gray-900">Adopt MT</p>
+            </Link>
             <button
               type="button"
               className="-m-2.5 rounded-md p-2.5 text-gray-700"

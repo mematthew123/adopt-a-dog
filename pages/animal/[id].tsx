@@ -8,12 +8,13 @@ import { HeartIcon as FilledHeartIcon } from "@heroicons/react/24/solid";
 import { useUser } from "@clerk/clerk-react";
 import { useFavorite } from "@/context/favoriteContext";
 import Link from "next/link";
+import Head from "next/head";
 
 interface Props {
   token: string;
 }
 
-export default function AnimalDetails({}: Props) {
+export default function AnimalDetails({ }: Props) {
   const [token, isLoaded] = usePetfinderToken();
   const router = useRouter();
   const { id } = router.query;
@@ -99,7 +100,18 @@ export default function AnimalDetails({}: Props) {
   }, [id, token, isLoaded]);
 
   return (
+
     <>
+      <Head>
+        <title>Adopt MT | {animal.name}</title>
+        <meta name="description" content={animal.description} />
+        <meta property="og:title" content={`Adopt MT | ${animal.name}`} key="title" />
+        <meta property="og:description" content={animal.description} />
+        <meta property="og:image:width" content="600" />
+        <meta property="og:image:height" content="230" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://adoptmt.org/" />
+      </Head>
       <div className=" bg-gray-50 flex flex-col justify-center items-center  border-gray-200 border-b-stone-800 border-2 rounded-lg">
         <div className="lg:grid-flow-col grid grid-cols-2 gap-4 sm:items-center">
           {animal.photos.map((photo) => (
@@ -154,9 +166,8 @@ export default function AnimalDetails({}: Props) {
             </button>
           </div>
           <div
-            className={`${
-              personalityExpanded ? "block" : "hidden"
-            } text-lg mt-4 description-section`}
+            className={`${personalityExpanded ? "block" : "hidden"
+              } text-lg mt-4 description-section`}
           >
             <div className="text-center mt-4 p-4 flex flex-col justify-center items-center">
               {animal.tags.length > 0 ? (
@@ -188,9 +199,8 @@ export default function AnimalDetails({}: Props) {
           </div>
 
           <div
-            className={`${
-              isExpanded ? "block" : "hidden"
-            } text-lg mt-4 description-section`}
+            className={`${isExpanded ? "block" : "hidden"
+              } text-lg mt-4 description-section`}
           >
             <div className="text-center mt-4 p-4">
               <p className="text-lg mb-2">Size: {animal.size}</p>
@@ -251,7 +261,7 @@ export default function AnimalDetails({}: Props) {
               <span className=" text-sky-800 font-semibold text-lg">
                 <Link href={`mailto:${animal.contact.email}`}>
                   {animal.contact.email}
-              
+
                 </Link>
                 <Link href={`tel:${animal.contact.phone}`}>
                   {animal.contact.phone}
